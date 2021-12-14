@@ -65,7 +65,6 @@ router.put('/updatenote/:id', fetchuser, async (req, res) => {
         if (note.user.toString() !== req.user.id) {
             return res.status(401).send("Not Allowed");
         }
-
         note = await Notes.findByIdAndUpdate(req.params.id, { $set: newNote }, { new: true });
         res.json({ note });
     }
@@ -77,9 +76,7 @@ router.put('/updatenote/:id', fetchuser, async (req, res) => {
 
 //ROUTE:4 Delete Notes using DELETE "api/notes/delete" Login Reqd
 //fetchuser is a middleware
-
 router.delete('/deletenote/:id', fetchuser, async (req, res) => {
-
     try {
         // now find note by id and then delete it
         let note = await Notes.findById(req.params.id);
@@ -90,7 +87,6 @@ router.delete('/deletenote/:id', fetchuser, async (req, res) => {
         if (note.user.toString() !== req.user.id) {
             return res.status(401).send("Not Allowed");
         }
-
         note = await Notes.findByIdAndDelete(req.params.id);
         res.json({ "Success": "Given note has been deleted", note: note });
     }
