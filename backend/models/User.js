@@ -22,4 +22,5 @@ const UserSchema = new Schema({
 
 })
 const User = mongoose.model('user', UserSchema);
+// User.createIndexes(); //it'll create multiple indices logic in auth.js check for email
 module.exports = User;
