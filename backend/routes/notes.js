@@ -58,6 +58,7 @@ router.put('/updatenote/:id', fetchuser, async (req, res) => {
         if (tag) { newNote.tag = tag };
 
         // now find user by id and then update it
+        // u have to take let because u cant assign/change value to constant
         let note = await Notes.findById(req.params.id);
 
         if (!note) { return res.status(404).send("Not Found") };

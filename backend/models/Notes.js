@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const NotesSchema = new mongoose.Schema({
+    //linking with other schema user like a foreign key
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user'
