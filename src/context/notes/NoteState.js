@@ -3,25 +3,9 @@ import { useState } from "react";
 
 const NoteState = (props) => {
 
-    const s1 = {
-        "name":"Arpit",
-        "age":"20"
-    }
-
-    const [state, setstate] = useState(s1);
-
-    const update = () => {
-        setTimeout(() => {
-            setstate({
-                "name":"Anshika",
-                "age":"24"
-            })
-        }, 5000);
-    }
-
 
     return (
-    <NoteContext.Provider value={{state:state,update:update}}>
+    <NoteContext.Provider value={{}}>
         {props.children}
     </NoteContext.Provider>
     )
