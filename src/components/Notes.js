@@ -5,7 +5,7 @@ import AddNote from './AddNote';
 
 function Notes() {
     const context = useContext(noteC);
-    const {notes, addNote} = context;
+    const {notes} = context;
     return (
         <>
         <AddNote />
