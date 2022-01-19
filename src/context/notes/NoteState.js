@@ -33,6 +33,7 @@ const NoteState = (props) => {
       body: JSON.stringify({ title, description, tag }) // body data type must match "Content-Type" header
     })
     const json = response.json();
+    console.log(json);
 
 
     const note = {
@@ -51,8 +52,19 @@ const NoteState = (props) => {
   }
 
   //Delete a Note
-  const deleteNote = (id) => {
+  const deleteNote = async (id) => {
     console.log("Deleting the note with id:_ " + id);
+    
+    const response = await fetch(`${host}/api/notes//deletenote/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'auth-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjFkMzRkOGU5ZGU1ZTZmMWNlZmFiMzE1In0sImlhdCI6MTY0MTI0MDI0N30.xSg80VfsOIUs73-tD92Moi45ehy5b7fyGMOWQsdvVus"
+      },
+    })
+    const json = response.json();
+    console.log(json);
+
     const newNote = notes.filter((note) => { return note._id !== id });
     setnotes(newNote);
   }
@@ -69,6 +81,7 @@ const NoteState = (props) => {
       body: JSON.stringify({ title, description, tag }) // body data type must match "Content-Type" header
     })
     const json = response.json();
+    console.log(json);
 
     for (let index = 0; index < notes.length; index++) {
       const element = notes[index];
