@@ -15,9 +15,10 @@ router.post('/createuser', [
     body('password', 'Enter a valid Password').isLength({ min: 5 }),
 ], async (req, res) => {
     //Bad Request then return Error
+    let success = false;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+        return res.status(400).json({success, errors: errors.array() });
     }
     try {
 
@@ -25,7 +26,7 @@ router.post('/createuser', [
         //Check whetehr User Exists already
         let user = await User.findOne({ email: req.body.email });
         if (user) {
-            return res.status(400).json({ error: 'Sorry User with this Credentials already exsit' });
+            return res.status(400).json({success, error: 'Sorry User with this Credentials already exsit' });
         }
 
         //Creating hashed passwords
@@ -51,7 +52,8 @@ router.post('/createuser', [
         const authToken = jwt.sign(data, JWT_SECRET);
         // console.log(jwtData);
         // res.json({ user })
-        res.json({ authToken });
+        success = true;
+        res.json({success, authToken });
     }
     catch (error) {
         console.log(error.message);
