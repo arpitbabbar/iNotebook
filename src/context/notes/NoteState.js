@@ -8,11 +8,11 @@ const NoteState = (props) => {
   const [notes, setnotes] = useState(noteInitial)
 
   const getNotes = async () => {
-    const response = await fetch(`${host}/api/notes//fetchallnotes`, {
+    const response = await fetch(`${host}/api/notes/fetchallnotes`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'auth-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjFkMzRkOGU5ZGU1ZTZmMWNlZmFiMzE1In0sImlhdCI6MTY0MTI0MDI0N30.xSg80VfsOIUs73-tD92Moi45ehy5b7fyGMOWQsdvVus"
+        'auth-token': localStorage.getItem('token')
       },
     })
     const json = await response.json();
@@ -28,7 +28,7 @@ const NoteState = (props) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'auth-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjFkMzRkOGU5ZGU1ZTZmMWNlZmFiMzE1In0sImlhdCI6MTY0MTI0MDI0N30.xSg80VfsOIUs73-tD92Moi45ehy5b7fyGMOWQsdvVus"
+        'auth-token': localStorage.getItem('token')
       },
       body: JSON.stringify({ title, description, tag }) // body data type must match "Content-Type" header
     })
@@ -47,7 +47,7 @@ const NoteState = (props) => {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        'auth-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjFkMzRkOGU5ZGU1ZTZmMWNlZmFiMzE1In0sImlhdCI6MTY0MTI0MDI0N30.xSg80VfsOIUs73-tD92Moi45ehy5b7fyGMOWQsdvVus"
+        'auth-token': localStorage.getItem('token')
       },
     })
     const json = await response.json();
@@ -64,7 +64,7 @@ const NoteState = (props) => {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        'auth-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjFkMzRkOGU5ZGU1ZTZmMWNlZmFiMzE1In0sImlhdCI6MTY0MTI0MDI0N30.xSg80VfsOIUs73-tD92Moi45ehy5b7fyGMOWQsdvVus"
+        'auth-token': localStorage.getItem('token')
       },
       body: JSON.stringify({ title, description, tag }) // body data type must match "Content-Type" header
     })

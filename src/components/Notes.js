@@ -2,18 +2,27 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 import noteC from "../context/notes/noteContext";
 import Noteitem from './Noteitem';
 import AddNote from './AddNote';
+import { useHistory } from 'react-router-dom';
 
-function Notes() {
+function Notes(props) {
     const context = useContext(noteC);
     const { notes, getNotes, editNote } = context;
-    
+    let history = useHistory();
+
+    useEffect(() => {
+        if(localStorage.getItem('token')){
+            getNotes();
+        }
+        else{
+            history.push("/login");
+        }
+         // eslint-disable-next-line 
+    }, [])
+
     const ref = useRef(null);
     const refClose = useRef(null);
     const [note, setnote] = useState({eid: "",etitle: "", edescription:"", etag:"default"});
-    useEffect(() => {
-        getNotes();
-         // eslint-disable-next-line 
-    }, [])
+
     const updateNote = (currentNote) => {
         ref.current.click();
         setnote({eid: currentNote._id, etitle: currentNote.title, edescription: currentNote.description, etag: currentNote.tag});
@@ -27,11 +36,12 @@ function Notes() {
     const handleClick = (e) => {
         editNote(note.eid, note.etitle, note.edescription, note.etag);
         refClose.current.click();
+        props.showAlert("Updated Successfully","success");
     }
 
     return (
         <>
-            <AddNote />
+            <AddNote showAlert={props.showAlert}/>
 
             <button type="button" className="btn btn-primary d-none" ref={ref} data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                 Launch static backdrop modal
@@ -73,7 +83,7 @@ function Notes() {
                 {notes.length === 0 && 'No Notes to Display'}
                 </div>
                 {notes.map((note) => {
-                    return <Noteitem key={note._id} updateNote={updateNote} note={note} />
+                    return <Noteitem key={note._id} showAlert={props.showAlert} updateNote={updateNote} note={note} />
                 })}
             </div>
         </>
